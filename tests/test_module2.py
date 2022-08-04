@@ -1,30 +1,24 @@
 import pytest
 from tests.template import debug_test_case, debug_test_case_class
-
 try:
     from sensor.load_data import load_sensor_data 
     recs = load_sensor_data()
 except ImportError:
     recs = 0
-
 try:
     from sensor.house_info import HouseInfo
     home_info = HouseInfo(recs)
 except ImportError:
     home_info = 0
-
 from datetime import date, datetime
-
 @pytest.mark.test_house_info_create_class_module2
 def test_house_info_create_class_module2(parse):
     # class HouseInfo():
     #     def __init__(self, data):
     #         self.data = data
-
     test_file = "house_info"
     test_class = "HouseInfo"
     test_method = "__init__"
-
     my_file = parse(test_file)
     assert my_file.success, my_file.message
     
@@ -33,7 +27,6 @@ def test_house_info_create_class_module2(parse):
     assert (
         my_class.exists()
     ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
-
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
@@ -92,7 +85,6 @@ def test_house_info_get_data_by_area_module2(parse):
     test_file = "house_info"
     test_class = "HouseInfo"
     test_method = "get_data_by_area"
-
     my_file = parse(test_file)
     assert my_file.success, my_file.message
     
@@ -101,14 +93,12 @@ def test_house_info_get_data_by_area_module2(parse):
     assert (
         my_class.exists()
     ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
-
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
     # debug_test_case(my_method) 
-
     my_class_arguments = (
         my_class.def_args_(test_method).match(
             {
@@ -136,7 +126,6 @@ def test_house_info_get_data_by_area_module2(parse):
         my_class_arguments
     ), """Are you defining a method `{0}` for the `{1}` class?
         Are you declaring the correct name and number of parameters?""".format(test_method, test_class)
-
     
     test_code = (
         my_method.assign_().match(
@@ -152,8 +141,6 @@ def test_house_info_get_data_by_area_module2(parse):
     assert (
         test_code
     ), "Are you creating a variable called `field_data` set equal to an empty list?"
-
-
 @pytest.mark.test_house_info_get_data_by_area_loop_module2
 def test_house_info_get_data_by_area_loop_module2(parse):
     
@@ -163,11 +150,9 @@ def test_house_info_get_data_by_area_loop_module2(parse):
             # elif rec_area == int(record['area']): 
             #     field_data.append(record[field])
     #     return field_data
-
     test_file = "house_info"
     test_class = "HouseInfo"
     test_method = "get_data_by_area"
-
     my_file = parse(test_file)
     assert my_file.success, my_file.message
     
@@ -176,18 +161,15 @@ def test_house_info_get_data_by_area_loop_module2(parse):
     assert (
         my_class.exists()
     ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
-
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
     # debug_test_case(my_method) 
-
     test_code = (
         my_method.for_().match(
             {
-
                 "target_type": "Name",
                 "target_id": "record",
                 "iter_type": "Attribute",
@@ -202,8 +184,6 @@ def test_house_info_get_data_by_area_loop_module2(parse):
         test_code
     ), """Do you have a `for` loop, looping through `self.data`? 
         Is the current loop value called `record`?"""
-
-
     # Test filer options:
     # recs = sensor.load_data.load_sensor_data()    # defined at top of file
     home_info = HouseInfo(recs)
@@ -213,14 +193,12 @@ def test_house_info_get_data_by_area_loop_module2(parse):
     ), """The length of your filter data when calling `get_data_by_area` is incorrect.
         Your function call should have only one argument. For example: `id`
         Check the logic inside your loop"""
-
     home_temp = home_info.get_data_by_area("id", rec_area=1)
     assert (
         len(home_temp) == 1000
     ), """The length of your filter data when calling `get_data_by_area` is incorrect.
         Your call should have the first argument as `id`, and the second argument as `rec_area=1
         Check the logic inside your loop"""
-
     home_temp = home_info.get_data_by_area("id", rec_area=2)
     assert (
         len(home_temp) == 1000
@@ -234,19 +212,14 @@ def test_house_info_get_data_by_area_loop_module2(parse):
     ), """The length of your filter data when calling `get_data_by_area` is incorrect.
         Your call should have the first argument as `id`, and the second argument as `rec_area=-999
         Check the logic inside your loop"""
-
-
 @pytest.mark.test_house_info_get_data_by_date_module2
 def test_house_info_get_data_by_date_module2(parse):
-
     # from datetime import date, datetime
     # def get_data_by_date(self, field, rec_date=date.today()):
     #     field_data = []
-
     test_file = "house_info"
     test_class = "HouseInfo"
     test_method = "get_data_by_date"
-
     my_file = parse(test_file)
     assert my_file.success, my_file.message
     
@@ -255,19 +228,15 @@ def test_house_info_get_data_by_date_module2(parse):
     assert (
         my_class.exists()
     ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
-
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
     # debug_test_case(my_method) 
-
     house_info_import = my_file.from_imports(
         "datetime", "date")
     assert house_info_import, "Are you importing `date` from `datetime`?"
-
-
     my_class_arguments = (
         my_class.def_args_(test_method).match(
             {
@@ -301,7 +270,6 @@ def test_house_info_get_data_by_date_module2(parse):
         Are you setting the third parameter's default value to `date.today()`?"""
     
     # debug_test_case(my_method) 
-
     test_code = (
         my_method.assign_().match(
             {
@@ -323,12 +291,10 @@ def test_house_info_get_data_by_date_loop_module2(parse):
         # for record in self.data:
         #     if rec_date.strftime("%m/%d/%y") == record['date']: 
         #         field_data.append(record[field])
-
         # return field_data
     test_file = "house_info"
     test_class = "HouseInfo"
     test_method = "get_data_by_date"
-
     my_file = parse(test_file)
     assert my_file.success, my_file.message
     
@@ -337,7 +303,6 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     assert (
         my_class.exists()
     ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
-
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
@@ -349,7 +314,6 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     first_for = (
         my_method.for_().match(
             {
-
                 "target_type": "Name",
                 "target_id": "record",
                 "iter_type": "Attribute",
@@ -364,7 +328,6 @@ def test_house_info_get_data_by_date_loop_module2(parse):
         first_for
     ), """Do you have a `for` loop, looping through `self.data`? 
         Is the current loop value called `record`?"""
-
     filter_recs = (
         my_method.for_().match(
             {
@@ -396,7 +359,6 @@ def test_house_info_get_data_by_date_loop_module2(parse):
                 "0_body_0_value_args_0_slice_type": "Index",
                 "0_body_0_value_args_0_slice_value_type": "Name",
                 "0_body_0_value_args_0_slice_value_id": "field"
-
             }
         )
         .exists()
@@ -407,8 +369,6 @@ def test_house_info_get_data_by_date_loop_module2(parse):
         Are you converting the date format of `rec_date` to "%m/%d/%y" form?
         Are you casting the `rec_date` as string with `strptime()` when comparing with `rec['date']` field?
         Are you appending the filter records to `field_data`?"""
-
-
     # Test filer options:
     # recs = load_sensor_data()    # defined at top of file
     home_info = HouseInfo(recs)
@@ -418,7 +378,6 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     ), """The length of your filter data when calling `get_data_by_date` is incorrect.
         Your function call should have only one argument. For example: `id`
         Check the logic inside your loop"""
-
     rec_date = datetime.strptime("1/1/2020", "%m/%d/%Y")
     home_temp = home_info.get_data_by_date("id", rec_date)
     assert (
@@ -437,25 +396,25 @@ def test_house_info_get_data_by_date_loop_module2(parse):
             and the second argument as `datetime` object with the format: "%m/%d/%Y"
         Check the logic inside your loop"""
     
-
 @pytest.mark.test_sensor_app_house_info_by_area_module2
 def test_sensor_app_house_info_by_area_module2(parse):
     # from house_info import HouseInfo
     # ...
     # house_info = HouseInfo(data)
+    # recs = house_info.get_data_by_area("id", rec_area=1)
+    # print("House sensor records for area 1 = {}".format(len(recs))) # NOT TEST IT
     # test_area = 1
     # recs = house_info.get_data_by_area("id", rec_area=test_area)
     # print("\nHouse sensor records for area {} = {}".format(test_area, len(recs)))
 
     test_file = "sensor_app"
-    
+
     my_file = parse(test_file)
     assert my_file.success, my_file.message
     
     my_file_import = my_file.from_imports(
         "house_info", "HouseInfo")
     assert my_file_import, "Are you importing `HouseInfo` from `house_info` in `{}` file".format(test_file)
-
     # debug_test_case(my_file)    
     
     test_code = (
@@ -482,6 +441,20 @@ def test_sensor_app_house_info_by_area_module2(parse):
     test_code = (
         my_file.assign_().match(
             {
+                "3_type": "Assign",
+                "3_targets_0_type": "Name",
+                "3_targets_0_id": "recs",
+                "3_value_type": "Call",
+                "3_value_func_type": "Attribute",
+                "3_value_func_value_type": "Name",
+                "3_value_func_value_id": "house_info",
+                "3_value_func_attr": "get_data_by_area",
+                "3_value_args_0_type": "Constant",
+                "3_value_args_0_value": "id",
+                "3_value_keywords_0_type": "keyword",
+                "3_value_keywords_0_arg": "rec_area",
+                "3_value_keywords_0_value_type": "Constant",
+                "3_value_keywords_0_value_value": 1,
         "3_type": "Assign",
         "3_targets_0_type": "Name",
         "3_targets_0_id": "test_area",
@@ -507,9 +480,11 @@ def test_sensor_app_house_info_by_area_module2(parse):
     )
     assert (
         test_code
+    ), """Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
     ), """Are you creating a variable called `test_area` and setting it to 1?
           Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
           Are you passing `"id"` as the first argument to the method?
+          Are you passing `rec_area=1` as the second argument to the method?"""
           Are you passing `rec_area=test_area` as the second argument to the method?"""
 
 
@@ -520,7 +495,6 @@ def test_sensor_app_house_info_by_date_module2(parse):
     # test_date = datetime.strptime("5/9/20", "%m/%d/%y")
     # recs = house_info.get_data_by_date("id", rec_date = test_date)
     # print("House sensor records for {} = {}".format(test_date.date(), len(recs))) # (NOT TEST IT)
-
     test_file = "sensor_app"
     
     my_file = parse(test_file)
@@ -529,17 +503,28 @@ def test_sensor_app_house_info_by_date_module2(parse):
     my_file_import = my_file.from_imports(
         "datetime", "datetime")
     assert my_file_import, "Are you importing `datetime` from `datetime` module?"
-
     my_file_import = my_file.from_imports(
         "datetime", "date")
     assert my_file_import, "Are you importing `date` from `datetime` module?"
 
-    
+
     # debug_test_case(my_file)    
-    
+
     test_code = (
         my_file.assign_().match(
             {
+                "4_type": "Assign",
+                "4_targets_0_type": "Name",
+                "4_targets_0_id": "test_date",
+                "4_value_type": "Call",
+                "4_value_func_type": "Attribute",
+                "4_value_func_value_type": "Name",
+                "4_value_func_value_id": "datetime",
+                "4_value_func_attr": "strptime",
+                "4_value_args_0_type": "Constant",
+                "4_value_args_0_value": "5/9/20",
+                "4_value_args_1_type": "Constant",
+                "4_value_args_1_value": "%m/%d/%y",
                 "5_type": "Assign",
                 "5_targets_0_type": "Name",
                 "5_targets_0_id": "test_date",
@@ -559,12 +544,26 @@ def test_sensor_app_house_info_by_date_module2(parse):
     assert (
         test_code
     ),  """Are you creating an instance of the `datetime` class called `test_date` 
-
             which takes `"5/9/20"` and `"%m/%d/%y"` as the two arguments?"""
-    
+
     test_code = (
         my_file.assign_().match(
             {
+                "5_type": "Assign",
+                "5_targets_0_type": "Name",
+                "5_targets_0_id": "recs",
+                "5_value_type": "Call",
+                "5_value_func_type": "Attribute",
+                "5_value_func_value_type": "Name",
+                "5_value_func_value_id": "house_info",
+                "5_value_func_attr": "get_data_by_date",
+                "5_value_args_0_type": "Constant",
+                "5_value_args_0_value": "id",
+                "5_value_keywords_0_type": "keyword",
+                "5_value_keywords_0_arg": "rec_date",
+                "5_value_keywords_0_value_type": "Name",
+                "5_value_keywords_0_value_id": "test_date"
+
                 "6_type": "Assign",
                 "6_targets_0_type": "Name",
                 "6_targets_0_id": "recs",
