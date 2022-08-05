@@ -480,12 +480,12 @@ def test_sensor_app_house_info_by_area_module2(parse):
     )
     assert (
         test_code
-    ), """Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
-    ), """Are you creating a variable called `test_area` and setting it to 1?
-          Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
-          Are you passing `"id"` as the first argument to the method?
-          Are you passing `rec_area=1` as the second argument to the method?"""
-          Are you passing `rec_area=test_area` as the second argument to the method?"""
+    ),  """Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
+    ),  #Are you creating a variable called `test_area` and setting it to 1?
+          #Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
+          #Are you passing `"id"` as the first argument to the method?
+          #Are you passing `rec_area=1` as the second argument to the method? 
+          #Are you passing `rec_area=test_area` as the second argument to the method?"""
 
 
 @pytest.mark.test_sensor_app_house_info_by_date_module2
